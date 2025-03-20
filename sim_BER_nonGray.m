@@ -106,8 +106,7 @@ for i_snr = 1:size(SNR_dB,2)
         elseif(strcmp(channel,'Rice'))
             h_real = randn(1,Iter);
             h_img = randn(1,Iter);
-            channel_factor = 10.^(channel_factor./10);
-            h{i} = 1./sqrt(PL(i)).*(sqrt(channel_factor./(channel_factor + 1)) + sqrt(1./(channel_factor + 1))/sqrt(2).*(h_real + 1j.*h_img));
+            h{i} = 1./sqrt(PL(i)).*(sqrt(K./(K + 1)) + sqrt(1./(K + 1))/sqrt(2).*(h_real + 1j.*h_img));
         end
         
         % AWGN
