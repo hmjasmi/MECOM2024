@@ -23,6 +23,7 @@
 
 function BER = sim_BER_Gray(b,a,SNR_dB,channel,channel_factor,Iter)
 M = 2.^b;
+K = 10.^(channel_factor./10);         % Rician factor (linear)
 N = length(b);
 Lambda = NaN.*ones(1,N);
 moh = NaN.*ones(1,N);
@@ -94,8 +95,7 @@ for i_snr = 1:length(SNR_dB)
         elseif(strcmp(channel,'Rice'))
             h_real = randn(1,Iter);
             h_img = randn(1,Iter);
-            channel_factor = 10.^(channel_factor./10);
-            h{i} = 1./sqrt(PL(i)).*(sqrt(channel_factor./(channel_factor + 1)) + sqrt(1./(channel_factor + 1))/sqrt(2).*(h_real + 1j.*h_img));
+            h{i} = 1./sqrt(PL(i)).*(sqrt(K./(K + 1)) + sqrt(1./(K + 1))/sqrt(2).*(h_real + 1j.*h_img));
         end
         % AWGN
         n{i} = (randn(1,Iter)+1j*randn(1,Iter))*Sf(i_snr);
